@@ -19,6 +19,11 @@ function extract --description "Expand or extract bundled & compressed files"
       unrar x $argv[1]
     case zip
       unzip $argv[1]
+    case xz
+      if test (echo $argv[1] | awk -F. '{print $(NF-1)}') = tar
+        tar -xJF $argv[1]
+      else
+        unxz $argv[1]
     case '*'
       echo "unknown extension"
   end
